@@ -10,11 +10,11 @@ A GIC 2026 VDC staff portal for managing teams and venture-coach evaluations. It
 - Login attempt limits, request size and input validation, same-origin write checks, restrictive content security policy
 - D1-backed state, daily cleanup of expired sessions and rate-limit records
 
-The portal does **not** implement Google OAuth, Google Drive permission changes, Google Sheets synchronization, public team submissions, or the full feature set of the old compiled UI. Deck URLs are external links managed by an administrator; Google Drive permissions must be configured separately in Google Drive. Do not claim those features are present.
+The portal does **not** implement Google OAuth, Google Drive permission changes, Google Sheets synchronization, public team submissions, AI evaluation, or the full feature set of the old compiled UI. Deck URLs are external links managed by an administrator; Google Drive permissions must be configured separately in Google Drive. Do not claim those features are present.
 
 ## Local development
 
-Requires Node.js 20+ and npm. Clone the repository (or use an existing checkout), then install dependencies and create the local database:
+Requires Node.js 22+ and npm (Wrangler no longer supports Node.js 20). Clone the repository (or use an existing checkout), then install dependencies and create the local database:
 
 ```sh
 git clone https://github.com/pulkit6732/GIC-tri-campus-portal.git
@@ -32,6 +32,12 @@ npm run dev
 Visit http://127.0.0.1:8787/ and create your first administrator with the value from `.dev.vars`. Password must be at least 12 characters. Store your credentials securely. Do not reuse the published passwords from the original ZIP.
 
 Run `npm test` for repeatable integration tests, even before creating `.dev.vars`. The test runner generates its own secret and starts a separate local Worker with an isolated temporary D1 database, creates test accounts, checks authorization and evaluates teams, then removes its test data. The 64 parallel health requests are only a bounded local smoke test, not a production capacity benchmark. GitHub Actions runs `npm ci`, the tests, and a deployment dry run on pushes and pull requests; it does not deploy.
+
+## Optional local LLM evaluation (planned, not implemented)
+
+There is currently **no LLM endpoint, AI evaluation button, or official scoring rubric in this repository**. Evaluations are entered by staff (integer score from 0 to 100 plus feedback). A local LLM cannot run inside this Cloudflare Worker. To add AI-assisted reviews later, run a model on a separate machine and have the Worker call it through a private, authenticated HTTPS service; the model should draft feedback for human review, **not** assign final scores automatically. Adding an API key today will not enable AI features.
+
+See [the LLM evaluation plan](docs/llm-evaluation.md) for model options, how local API credentials work, a proposed rubric workflow, security requirements, and an implementation checklist. The event organizers must supply and approve the actual competition rules and scoring criteria before this can be built or used for decisions.
 
 ## Cloudflare deployment
 

@@ -2,6 +2,7 @@
   "name": "gic-2026-portal",
   "private": true,
   "type": "module",
+  "engines": { "node": ">=22.0.0" },
   "scripts": {
     "dev": "wrangler dev --local --port 8787",
     "db:local": "wrangler d1 migrations apply gic-portal --local",
