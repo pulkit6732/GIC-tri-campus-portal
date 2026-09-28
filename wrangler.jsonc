@@ -1,0 +1,8 @@
+{
+  "name": "gic-2026-portal",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-09-01",
+  "d1_databases": [{"binding":"DB","database_name":"gic-portal","database_id":"00000000-0000-0000-0000-000000000000","migrations_dir":"migrations"}],
+  "assets": {"directory":"./public","binding":"ASSETS","run_worker_first":["/api/*"]},
+  "triggers": {"crons":["0 3 * * *"]}
+}

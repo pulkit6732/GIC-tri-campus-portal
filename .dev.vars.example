@@ -1,0 +1,2 @@
+# Copy to .dev.vars and replace this value with a random secret (at least 32 characters).
+BOOTSTRAP_SECRET="REPLACE_ME"

@@ -1,0 +1,16 @@
+{
+  "name": "gic-2026-portal",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --local --port 8787",
+    "db:local": "wrangler d1 migrations apply gic-portal --local",
+    "predb:remote": "node scripts/check-production-config.mjs",
+    "db:remote": "wrangler d1 migrations apply gic-portal --remote",
+    "test": "node tests/run.mjs",
+    "predeploy": "node scripts/check-production-config.mjs",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": { "hono": "^4.13.10" },
+  "devDependencies": { "wrangler": "^4.142.0" }
+}
